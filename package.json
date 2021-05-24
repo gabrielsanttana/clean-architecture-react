@@ -27,6 +27,22 @@
     "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-plugin-standard": "^5.0.0",
     "eslint-plugin-testing-library": "^4.6.0",
+    "husky": "^6.0.0",
+    "lint-staged": "^11.0.0",
     "typescript": "^4.2.4"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix"
+    ],
+    "*.{scss,css}": [
+      "prettier  --write --parser=css"
+    ],
+    "*.{json}": [
+      "prettier  --write --parser=json"
+    ],
+    "*.{md}": [
+      "prettier  --write --parser=markdown"
+    ]
   }
 }
