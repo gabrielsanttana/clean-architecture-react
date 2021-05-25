@@ -5,6 +5,9 @@
   "repository": "git@github.com:gabrielsanttana/clean-react.git",
   "author": "Gabriel Santana <gabriel.gsantana7@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "test": "jest"
+  },
   "dependencies": {
     "git-commit-msg-linter": "^3.1.0"
   },
