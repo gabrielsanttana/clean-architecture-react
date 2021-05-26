@@ -77,6 +77,6 @@
     "no-plusplus": "off", // Rever,
     "testing-library/render-result-naming-convention": "off", // Rever
     "max-classes-per-file": ["warn", 3],
-    "no-useless-constructor": "warn"
+    "no-useless-constructor": "off"
   }
 }

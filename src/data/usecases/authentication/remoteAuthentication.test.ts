@@ -2,8 +2,6 @@ import faker from 'faker';
 import {HttpPostClientSpy} from '../../mocks/httpClient';
 import {RemoteAuthentication} from './remoteAuthentication';
 
-// SUT: System Under Test
-
 type SutTypes = {
   sut: RemoteAuthentication;
   httpPostClientSpy: HttpPostClientSpy;
