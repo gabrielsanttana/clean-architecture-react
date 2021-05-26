@@ -12,7 +12,9 @@
     "test:ci": "yarn test --coverage"
   },
   "dependencies": {
-    "git-commit-msg-linter": "^3.1.0"
+    "git-commit-msg-linter": "^3.1.0",
+    "faker": "^5.5.3",
+    "@types/faker": "^5.5.5"
   },
   "devDependencies": {
     "@types/jest": "^26.0.23",
@@ -34,6 +36,7 @@
     "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-plugin-standard": "^5.0.0",
     "eslint-plugin-testing-library": "^4.6.0",
+    
     "husky": "^6.0.0",
     "jest": "^26.6.3",
     "lint-staged": "^11.0.0",
