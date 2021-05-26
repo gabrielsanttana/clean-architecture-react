@@ -58,12 +58,6 @@
     ]
   },
   "jest": {
-    "collectCoverageFrom": [
-      "<rootDir>/src/**/*.{ts,tsx,js,jsx}",
-      "!<rootDir>/src/*.{ts,tsx}",
-      "!<rootDir>/src/utils/**/*.{ts,tsx}",
-      "!<rootDir>/src/store/**/*.{ts,tsx}"
-    ],
     "coverageThreshold": {
       "global": {
         "statements": 100,
