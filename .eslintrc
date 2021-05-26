@@ -75,6 +75,8 @@
     "lines-between-class-members": "off",
     "eqeqeq": "off",
     "no-plusplus": "off", // Rever,
-    "testing-library/render-result-naming-convention": "off" // Rever
+    "testing-library/render-result-naming-convention": "off", // Rever
+    "max-classes-per-file": ["warn", 3],
+    "no-useless-constructor": "warn"
   }
 }
