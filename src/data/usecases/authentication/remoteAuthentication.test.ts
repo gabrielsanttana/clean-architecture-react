@@ -20,7 +20,7 @@ const makeSut = (url = faker.internet.url()): SutTypes => {
 
 describe('The RemoteAuthentication module', () => {
   it('calls the HTTPClient with correct URL', async () => {
-    const url = 'https://google.com.br';
+    const url = faker.internet.url();
     const authenticationMock = mockAuthentication();
 
     const {sut, httpPostClientSpy} = makeSut(url);
