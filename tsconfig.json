@@ -15,6 +15,10 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "baseUrl": "src",
+    "rootDir": "src",
+    "paths": {
+      "@/*": ["*"]
+    },
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
     "downlevelIteration": true
