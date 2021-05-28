@@ -1,7 +1,8 @@
 import {HttpPostClientSpy} from '@/data/mocks/httpPostClient';
 import {HttpStatusCode} from '@/data/protocols/http/httpResponse';
+import {AuthenticationError} from '@/domain/errors/authenticationError';
 import {InvalidCredentialsError} from '@/domain/errors/invalidCredentialsError';
-import {mockAuthentication} from '@/domain/mocks/authentication';
+import {getAuthenticationMock} from '@/domain/mocks/authentication';
 import faker from 'faker';
 import {RemoteAuthentication} from './remoteAuthentication';
 
@@ -23,7 +24,7 @@ const makeSut = (url = faker.internet.url()): SutTypes => {
 describe('The RemoteAuthentication module', () => {
   it('calls the HTTPClient with correct URL', async () => {
     const url = faker.internet.url();
-    const authenticationMock = mockAuthentication();
+    const authenticationMock = getAuthenticationMock();
 
     const {sut, httpPostClientSpy} = makeSut(url);
 
@@ -35,7 +36,7 @@ describe('The RemoteAuthentication module', () => {
   it('calls the HTTPClient with correct body', async () => {
     const {sut, httpPostClientSpy} = makeSut();
 
-    const authenticationMock = mockAuthentication();
+    const authenticationMock = getAuthenticationMock();
 
     await sut.auth(authenticationMock);
 
@@ -45,7 +46,7 @@ describe('The RemoteAuthentication module', () => {
   it('throws InvalidCrendetialsError when HttpPostClient returns status 401', async () => {
     const {sut, httpPostClientSpy} = makeSut();
 
-    const authenticationMock = mockAuthentication();
+    const authenticationMock = getAuthenticationMock();
 
     httpPostClientSpy.response = {
       statusCode: HttpStatusCode.unauthorized,
@@ -54,5 +55,19 @@ describe('The RemoteAuthentication module', () => {
     const promise = sut.auth(authenticationMock);
 
     await expect(promise).rejects.toThrow(new InvalidCredentialsError());
+  });
+
+  it('throws AuthenticationError when HttpPostClient returns status 400', async () => {
+    const {sut, httpPostClientSpy} = makeSut();
+
+    const authenticationMock = getAuthenticationMock();
+
+    httpPostClientSpy.response = {
+      statusCode: HttpStatusCode.badRequest,
+    };
+
+    const promise = sut.auth(authenticationMock);
+
+    await expect(promise).rejects.toThrow(new AuthenticationError());
   });
 });
