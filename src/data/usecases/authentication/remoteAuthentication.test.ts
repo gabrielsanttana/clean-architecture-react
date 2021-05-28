@@ -84,4 +84,18 @@ describe('The RemoteAuthentication module', () => {
 
     await expect(promise).rejects.toThrow(new AuthenticationError());
   });
+
+  it('throws AuthenticationError when HttpPostClient returns status 500', async () => {
+    const {sut, httpPostClientSpy} = makeSut();
+
+    const authenticationMock = getAuthenticationMock();
+
+    httpPostClientSpy.response = {
+      statusCode: HttpStatusCode.serverError,
+    };
+
+    const promise = sut.auth(authenticationMock);
+
+    await expect(promise).rejects.toThrow(new AuthenticationError());
+  });
 });
