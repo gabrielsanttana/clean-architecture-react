@@ -70,4 +70,18 @@ describe('The RemoteAuthentication module', () => {
 
     await expect(promise).rejects.toThrow(new AuthenticationError());
   });
+
+  it('throws AuthenticationError when HttpPostClient returns status 404', async () => {
+    const {sut, httpPostClientSpy} = makeSut();
+
+    const authenticationMock = getAuthenticationMock();
+
+    httpPostClientSpy.response = {
+      statusCode: HttpStatusCode.notFound,
+    };
+
+    const promise = sut.auth(authenticationMock);
+
+    await expect(promise).rejects.toThrow(new AuthenticationError());
+  });
 });
