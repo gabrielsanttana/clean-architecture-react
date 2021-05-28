@@ -1,4 +1,6 @@
 import {HttpPostClientSpy} from '@/data/mocks/httpPostClient';
+import {HttpStatusCode} from '@/data/protocols/http/httpResponse';
+import {InvalidCredentialsError} from '@/domain/errors/invalidCredentialsError';
 import {mockAuthentication} from '@/domain/mocks/authentication';
 import faker from 'faker';
 import {RemoteAuthentication} from './remoteAuthentication';
@@ -38,5 +40,19 @@ describe('The RemoteAuthentication module', () => {
     await sut.auth(authenticationMock);
 
     expect(httpPostClientSpy.body).toEqual(authenticationMock);
+  });
+
+  it('throws InvalidCrendetialsError when HttpPostClient returns status 401', async () => {
+    const {sut, httpPostClientSpy} = makeSut();
+
+    const authenticationMock = mockAuthentication();
+
+    httpPostClientSpy.response = {
+      statusCode: HttpStatusCode.unauthorized,
+    };
+
+    const promise = sut.auth(authenticationMock);
+
+    await expect(promise).rejects.toThrow(new InvalidCredentialsError());
   });
 });
