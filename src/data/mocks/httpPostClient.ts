@@ -1,17 +1,23 @@
 import {
   HttpPostClient,
   HttpPostRequest,
-} from 'data/protocols/http/httpPostClient';
-import {HttpResponse, HttpStatusCode} from '../protocols/http/httpResponse';
+  HttpResponse,
+  HttpStatusCode,
+} from '@/data/protocols/http';
 
-export class HttpPostClientSpy implements HttpPostClient {
+export class HttpPostClientSpy<RequestBody, ResponseBody>
+  implements HttpPostClient<RequestBody, ResponseBody>
+{
   url?: string;
-  body?: Record<string, unknown>;
-  response: HttpResponse = {
+  body?: RequestBody;
+  response: HttpResponse<ResponseBody> = {
     statusCode: HttpStatusCode.ok,
   };
 
-  async post({url, body}: HttpPostRequest): Promise<HttpResponse> {
+  async post({
+    url,
+    body,
+  }: HttpPostRequest<RequestBody>): Promise<HttpResponse<ResponseBody>> {
     this.url = url;
     this.body = body;
 

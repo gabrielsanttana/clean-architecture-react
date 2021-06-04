@@ -1,10 +1,12 @@
-import {HttpResponse} from './httpResponse';
+import {HttpResponse} from '.';
 
-export type HttpPostRequest = {
+export type HttpPostRequest<Body> = {
   url: string;
-  body?: Record<string, unknown>;
+  body?: Body;
 };
 
-export interface HttpPostClient {
-  post(request: HttpPostRequest): Promise<HttpResponse>;
+export interface HttpPostClient<RequestBody, ResponseBody> {
+  post(
+    request: HttpPostRequest<RequestBody>,
+  ): Promise<HttpResponse<ResponseBody>>;
 }
