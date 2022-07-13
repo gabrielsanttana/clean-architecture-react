@@ -1,4 +1,4 @@
-import {AuthenticationParams} from 'domain/usecases';
+import {AuthenticationParams} from '@/domain/useCases';
 import faker from 'faker';
 import {AccountModel} from '../models';
 

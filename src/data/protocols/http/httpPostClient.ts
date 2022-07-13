@@ -1,9 +1,9 @@
 import {HttpResponse} from '.';
 
-export type HttpPostRequest<Body> = {
+export interface HttpPostRequest<Body> {
   url: string;
   body?: Body;
-};
+}
 
 export interface HttpPostClient<RequestBody, ResponseBody> {
   post(

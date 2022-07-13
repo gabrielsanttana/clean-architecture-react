@@ -6,14 +6,14 @@ import {
   getAuthenticationParamsMock,
 } from '@/domain/mocks/authentication';
 import {AccountModel} from '@/domain/models';
-import {AuthenticationParams} from '@/domain/usecases';
+import {AuthenticationParams} from '@/domain/useCases';
 import faker from 'faker';
 import {RemoteAuthentication} from './remoteAuthentication';
 
-type SutTypes = {
+interface SutTypes {
   sut: RemoteAuthentication;
   httpPostClientSpy: HttpPostClientSpy<AuthenticationParams, AccountModel>;
-};
+}
 
 const makeSut = (url = faker.internet.url()): SutTypes => {
   const httpPostClientSpy = new HttpPostClientSpy<
