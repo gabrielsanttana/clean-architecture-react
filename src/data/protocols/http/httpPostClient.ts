@@ -1,12 +1,12 @@
 import {HttpResponse} from '.';
 
-export interface HttpPostRequest<Body> {
+export interface HttpPostRequest<BodyType> {
   url: string;
-  body?: Body;
+  body?: BodyType;
 }
 
-export interface HttpPostClient<RequestBody, ResponseBody> {
+export interface HttpPostClient<RequestBodyType, ResponseBodyType> {
   post(
-    request: HttpPostRequest<RequestBody>,
-  ): Promise<HttpResponse<ResponseBody>>;
+    request: HttpPostRequest<RequestBodyType>,
+  ): Promise<HttpResponse<ResponseBodyType>>;
 }
