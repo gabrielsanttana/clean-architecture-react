@@ -4,6 +4,7 @@ import {
   HttpResponse,
   HttpStatusCode,
 } from '@/data/protocols/http';
+import faker from 'faker';
 
 export class HttpPostClientSpy<RequestBody, ResponseBody>
   implements HttpPostClient<RequestBody, ResponseBody>
@@ -23,4 +24,11 @@ export class HttpPostClientSpy<RequestBody, ResponseBody>
 
     return Promise.resolve(this.response);
   }
+}
+
+export function mockPostRequest(): HttpPostRequest<string> {
+  return {
+    url: faker.internet.url(),
+    body: faker.random.word(),
+  };
 }

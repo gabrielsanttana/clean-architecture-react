@@ -1,46 +1,45 @@
-import {HttpPostRequest} from '@/data/protocols/http';
+import {mockPostRequest} from '@/data/mocks';
+import {mockAxios} from '@/infra/mocks';
 import axios from 'axios';
-import faker from 'faker';
 import {AxiosHttpClient} from '.';
 
-jest.mock('axios');
-const mockedAxios = axios as jest.Mocked<typeof axios>;
-const mockedAxiosResponse = {
-  status: faker.datatype.number(200),
-  data: faker.datatype.json(),
-};
-mockedAxios.post.mockResolvedValue(mockedAxiosResponse);
-
-function makeSut(): AxiosHttpClient {
-  return new AxiosHttpClient();
+interface SutType {
+  sut: AxiosHttpClient;
+  mockedAxios: jest.Mocked<typeof axios>;
 }
 
-function mockPostRequest(): HttpPostRequest<string> {
+function makeSut(): SutType {
+  const sut = new AxiosHttpClient();
+  const mockedAxios = mockAxios();
+
   return {
-    url: faker.internet.url(),
-    body: faker.random.word(),
+    sut,
+    mockedAxios,
   };
 }
 
+jest.mock('axios');
+
 describe('The axiosHttpClient module', () => {
   it('calls axios with correct values in post request', async () => {
-    const request = mockPostRequest();
-    const sut = makeSut();
+    const mockedRequest = mockPostRequest();
+    const {sut, mockedAxios} = makeSut();
 
-    await sut.post(request);
+    await sut.post(mockedRequest);
 
-    expect(mockedAxios.post).toHaveBeenCalledWith(request.url, request.body);
+    expect(mockedAxios.post).toHaveBeenCalledWith(
+      mockedRequest.url,
+      mockedRequest.body,
+    );
   });
 
   it('returns the correct data in post response', async () => {
-    const sut = makeSut();
-    const request = mockPostRequest();
+    const {sut, mockedAxios} = makeSut();
+    const mockedRequest = mockPostRequest();
+    const mockedResponse = mockedAxios.post.mock.results[0].value;
 
-    const response = await sut.post(request);
+    const response = sut.post(mockedRequest);
 
-    expect(response).toEqual({
-      statusCode: mockedAxiosResponse.status,
-      body: mockedAxiosResponse.data,
-    });
+    expect(response).toEqual(mockedResponse);
   });
 });
